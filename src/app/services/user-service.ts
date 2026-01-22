@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { UserModel } from '../model/UserModel';
-import { U } from '@angular/cdk/keycodes';
 
 @Injectable({
   providedIn: 'root',
@@ -19,23 +18,33 @@ export class UserService {
     const repo = this.getStorage();
     let index = repo.findIndex(u => u.id === userModel.id);
 
-    if(index !== -1){
-      console.log("User not found");
-      return;
-    }
-
-    repo[index] = userModel;
+    Object.assign(repo[index], userModel); 
     localStorage.setItem(UserService.REPO_USERS, JSON.stringify(repo))
   }
 
-  delete(userModel:UserModel){
+  getUserById(id:string){
     const repo = this.getStorage();
-    let newRepo = repo.filter(u=> u.id === userModel.id)
+    let index = repo.findIndex(u => u.id === id);
+
+    if(index === -1) return
+
+    return repo[index];
+  }
+
+  delete(userId:string){
+    const repo = this.getStorage();
+    let newRepo = repo.filter(u=> u.id !== userId)
     localStorage.setItem(UserService.REPO_USERS, JSON.stringify(newRepo));
   }
 
   getUsers(name:string):UserModel[]{
-    return this.getStorage();
+    const users = this.getStorage()
+
+    if(!name){
+      return users
+    }
+
+    return users.filter(u=> u.name?.indexOf(name) !== -1);
   }
 
   private getStorage():UserModel[]{

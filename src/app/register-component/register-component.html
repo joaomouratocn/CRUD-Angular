@@ -2,7 +2,7 @@
     <mat-card-header class="text-2xl">
         Register User
     </mat-card-header>
-    <form (submit)="saveUser()" #frmRegister>
+    <form (submit)="saveUser()">
         <mat-card-content>
             <mat-form-field class="w-full">
                 <mat-label>Nome<span class="text-red-500">*</span>:</mat-label>
@@ -10,25 +10,41 @@
             </mat-form-field>
             <mat-form-field class="w-full">
                 <mat-label>CPF<span class="text-red-500">*</span>:</mat-label>
-                <input type="text" matInput placeholder="Insert your cpf" [(ngModel)]="userModel.cpf" name="cpf">
+                <input type="text" matInput placeholder="Insert your cpf" [(ngModel)]="userModel.cpf" name="cpf" mask="000.000.000-00">
             </mat-form-field>
             <mat-form-field class="w-full">
                 <mat-label>Bithday<span class="text-red-500">*</span>:</mat-label>
-                <input type="date" matInput placeholder="Insert your bithday" [(ngModel)]="userModel.bithday" name="bithday">
+                <input type="text" matInput placeholder="Insert your bithday" [(ngModel)]="userModel.bithday" name="bithday" mask="00/00/0000">
             </mat-form-field>
             <mat-form-field class="w-full">
                 <mat-label>Email<span class="text-red-500">*</span>:</mat-label>
                 <input type="email" matInput placeholder="Insert your email" [(ngModel)]="userModel.email" name="email">
             </mat-form-field>
+            <mat-form-field class="w-full">
+                <mat-label>UF<span class="text-red-500">*</span>:</mat-label>
+                <mat-select (selectionChange)="loadCities($event)" [(value)]="userModel.uf">
+                    @for(item of states; track $index) {
+                        <mat-option [value]="item.sigla">{{item.nome}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <mat-label>City<span class="text-red-500">*</span>:</mat-label>
+                <mat-select [(value)]="userModel.city">
+                    @for(item of cities; track $index) {
+                        <mat-option [value]="item.nome" >{{item.nome}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
         </mat-card-content>
         <mat-card-actions class="flex justify-end gap-3">
             <button matButton="filled" color="primary" type="submit">
-                <mat-icon>save</mat-icon>
+                @if(updateUser){
+                    <mat-icon>edit</mat-icon>
+                }@else {
+                    <mat-icon>save</mat-icon>
+                }
                 Save
-            </button>
-            <button matButton="filled" color="accent" type="button">
-                <mat-icon>delete</mat-icon>
-                Delete
             </button>
         </mat-card-actions>
     </form>

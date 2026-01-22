@@ -6,6 +6,9 @@ export class UserModel{
     cpf?:string;
     bithday?:string;
     email?:string;
+    uf?:string;
+    city?:string;
+    delete:boolean = false
 
     static newUser(){
         const userModel = new UserModel();
