@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { UserModel } from '../model/UserModel';
 import { FormsModule } from '@angular/forms';
+import { UserService } from '../services/user-service';
 
 @Component({
   selector: 'app-register-component',
@@ -15,8 +16,18 @@ import { FormsModule } from '@angular/forms';
 })
 export class RegisterComponent {
   userModel:UserModel = UserModel.newUser();
+
+  constructor(private userService:UserService){}
   
   saveUser(){
-    
+    this.userService.save(this.userModel);
+
+    this.userModel = {
+      name: "",
+      bithday: "",
+      cpf: "",
+      email: "",
+      id: ""
+    }
   }
 }
