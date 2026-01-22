@@ -8,34 +8,38 @@
                 <mat-label>Nome<span class="text-red-500">*</span>:</mat-label>
                 <input type="text" matInput placeholder="Insert your name" [(ngModel)]="userModel.name" name="name">
             </mat-form-field>
-            <mat-form-field class="w-full">
-                <mat-label>CPF<span class="text-red-500">*</span>:</mat-label>
-                <input type="text" matInput placeholder="Insert your cpf" [(ngModel)]="userModel.cpf" name="cpf" mask="000.000.000-00">
-            </mat-form-field>
-            <mat-form-field class="w-full">
-                <mat-label>Bithday<span class="text-red-500">*</span>:</mat-label>
-                <input type="text" matInput placeholder="Insert your bithday" [(ngModel)]="userModel.bithday" name="bithday" mask="00/00/0000">
-            </mat-form-field>
+            <div class="flex flex-row gap-3">
+                <mat-form-field class="flex-1">
+                    <mat-label>CPF<span class="text-red-500">*</span>:</mat-label>
+                    <input type="text" matInput placeholder="Insert your cpf" [(ngModel)]="userModel.cpf" name="cpf" mask="000.000.000-00">
+                </mat-form-field>
+                <mat-form-field class="flex-1">
+                    <mat-label>Bithday<span class="text-red-500">*</span>:</mat-label>
+                    <input type="text" matInput placeholder="Insert your bithday" [(ngModel)]="userModel.bithday" name="bithday" mask="00/00/0000">
+                </mat-form-field>
+            </div>
             <mat-form-field class="w-full">
                 <mat-label>Email<span class="text-red-500">*</span>:</mat-label>
                 <input type="email" matInput placeholder="Insert your email" [(ngModel)]="userModel.email" name="email">
             </mat-form-field>
-            <mat-form-field class="w-full">
-                <mat-label>UF<span class="text-red-500">*</span>:</mat-label>
-                <mat-select (selectionChange)="loadCities($event)" [(value)]="userModel.uf">
-                    @for(item of states; track $index) {
-                        <mat-option [value]="item.sigla">{{item.nome}}</mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field class="w-full">
-                <mat-label>City<span class="text-red-500">*</span>:</mat-label>
-                <mat-select [(value)]="userModel.city">
-                    @for(item of cities; track $index) {
-                        <mat-option [value]="item.nome" >{{item.nome}}</mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
+            <div class="flex flex-row gap-3">
+                <mat-form-field class="flex-1">
+                    <mat-label>UF<span class="text-red-500">*</span>:</mat-label>
+                    <mat-select (selectionChange)="loadCities($event)" [(value)]="userModel.uf">
+                        @for(item of states; track $index) {
+                            <mat-option [value]="item.sigla">{{item.nome}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="flex-1">
+                    <mat-label>City<span class="text-red-500">*</span>:</mat-label>
+                    <mat-select [(value)]="userModel.city">
+                        @for(item of cities; track $index) {
+                            <mat-option [value]="item.nome" >{{item.nome}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </div>
         </mat-card-content>
         <mat-card-actions class="flex justify-end gap-3">
             <button matButton="filled" color="primary" type="submit">
